@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="col-md-6">
+    <img class="img-thumbnail rounded" style="max-width: 25%;"
+         th:src="@{/imagenes/episi.jpg}" th:alt="'EPISI'"/>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

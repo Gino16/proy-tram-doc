@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<!--Inicio Formulario de Solicitante-->
+<div class="container">
+    <form th:action="@{/persona/registrar}" th:object="${persona}" method="post">
+        <div class="card-header">
+            <h4 class="card-title" th:text="${titulo}"></h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-form-label mr-3">DNI / RUC:</label>
+                <input class="col-sm-8 form-control" type="text"
+                       th:field="*{dniRuc}">
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label mr-3">Cod. Estudiante:</label>
+                <input class="col-sm-8 form-control" type="text"
+                       th:field="*{codEstudiante}">
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label mr-3">Nombre:</label>
+                <input class="col-sm-8 form-control" type="text"
+                       th:field="*{nombre}">
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label mr-3">Email:</label>
+                <input class="col-sm-8 form-control" type="text"
+                       th:field="*{email}">
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label mr-3">Cargo:</label>
+                <select>
+                    <option th:each="puesto : ${puestos}"
+                            th:value="${puesto.id}"
+                            th:text="${puesto.nombre}"
+                            th:field="*{puesto}"></option>
+                </select>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Registrar">
+        </div>
+    </form>
+</div>
+<!--Fin Formulario de Solicitante-->
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

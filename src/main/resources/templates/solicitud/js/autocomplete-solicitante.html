@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script type="text/javascript" th:fragment="javascript">
+    $(document).ready(function () {
+            $('#dniRucSolicitante').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/persona/buscar-solicitante/" + request.term,
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: item.dniRuc,
+                                    codEst: item.codEstudiante,
+                                    nombre: item.nombre,
+                                    email: item.email,
+                                    puesto: item.puesto.nombre
+                                };
+                            }));
+                        },
+                    });
+                },
+                select: function (event, ui) {
+                    $("#dniRucSolicitante").val(ui.item.value);
+                    $("#codSolicitante").val(ui.item.codEst);
+                    $("#nombreSolicitante").val(ui.item.nombre);
+                    $("#emailSolicitante").val(ui.item.email);
+                    $("#puestoSolicitante").val(ui.item.puesto);
+                    return false;
+                }
+            });
+        }
+    );
+</script>
+</body>
+</html>
