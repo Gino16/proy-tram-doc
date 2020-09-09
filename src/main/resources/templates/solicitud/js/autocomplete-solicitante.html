@@ -9,7 +9,7 @@
                         url: "/persona/buscar-solicitante/" + request.term,
                         dataType: "json",
                         data: {
-                            term: request.term
+                            term: $('#dniRucSolicitante').val()
                         },
                         success: function (data) {
                             response($.map(data, function (item) {

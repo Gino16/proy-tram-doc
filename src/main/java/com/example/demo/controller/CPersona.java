@@ -35,7 +35,7 @@ public class CPersona {
     }
 
     @PostMapping(value = "/registrar")
-    public String registrarPersona(@Valid Persona persona, Model model, RedirectAttributes flash, SessionStatus status){
+    public String registrar(@Valid Persona persona, Model model, RedirectAttributes flash, SessionStatus status){
         personaService.savePersona(persona);
         status.setComplete();
         flash.addFlashAttribute("success", "Solicitante registrado con exito!");

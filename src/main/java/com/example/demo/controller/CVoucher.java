@@ -6,19 +6,21 @@ import com.example.demo.models.service.voucher.SIVoucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/voucher")
+@SessionAttributes("voucher")
 public class CVoucher {
 
     @Autowired
@@ -27,10 +29,19 @@ public class CVoucher {
     @Autowired
     SIVoucher voucherService;
 
+    @GetMapping("/registrar")
+    public String vistaRegistrar(Model model){
+        Voucher voucher = new Voucher();
+        model.addAttribute("voucher", voucher);
+        return "voucher/registrar";
+    }
+
     @RequestMapping(value = "/registrar", method = RequestMethod.POST)
-    public String registrar(@Valid Voucher voucher, Model model,
+    public String registrar(@Valid Voucher voucher,
                             @RequestParam("file") MultipartFile fotoVoucher,
-                            @RequestParam("fecha") String fecha){
+                            @RequestParam("fecha") String fecha,
+                            RedirectAttributes flash,
+                            SessionStatus status){
 
 
         if(!fotoVoucher.isEmpty()){
@@ -48,8 +59,8 @@ public class CVoucher {
         }
 
         SimpleDateFormat smpt1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date actualFecha = null;
-        Date nuevaFecha = null;
+        Date actualFecha;
+        Date nuevaFecha;
         try {
             actualFecha = smpt1.parse(fecha);
             SimpleDateFormat smpt2 = new SimpleDateFormat("dd-MM-yyyy");
@@ -58,8 +69,42 @@ public class CVoucher {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        String mensaje = (voucher.getId() != null) ? "Voucher editado con exito!" : "Voucher registrado con exito!";
         voucherService.save(voucher);
+        status.setComplete();
+        flash.addFlashAttribute("success",mensaje);
 
+        return "redirect:/solicitud/registrar";
+    }
+
+    @RequestMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Map<String, Object> model, RedirectAttributes flash){
+        Voucher voucher = null;
+        if (id > 0){
+            voucher = voucherService.findOne(id);
+            if(voucher == null){
+                flash.addFlashAttribute("error", "El voucher no existe en la BD!");
+                return "redirect:/solicitud/registrar";
+            }
+        } else {
+            flash.addFlashAttribute("error","ID no valido!");
+            return "redirect:/solicitud/registrar";
+        }
+        model.put("voucher", voucher);
+        return "/voucher/registrar";
+    }
+
+    @RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)
+    public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash){
+        if(id > 0 ){
+            Voucher voucher = voucherService.findOne(id);
+            voucherService.delete(id);
+            flash.addFlashAttribute("error", "Voucher eliminado con exito!");
+            if(fileService.delete(voucher.getUrl())){
+                flash.addFlashAttribute("info", "Se elimino el pdf adjunto al voucher");
+            }
+
+        }
         return "redirect:/solicitud/registrar";
     }
 }

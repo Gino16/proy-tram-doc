@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Registrar voucher</h4>
+    </div>
+    <div class="card-body">
+        <form th:action="@{/voucher/registrar}" th:object="${voucher}"
+              method="post"
+              enctype="multipart/form-data">
+            <div class="form-group row">
+                <label class="col-form-label col-sm-6">Codigo
+                    concepto:</label>
+                <input class="form-control col-sm-6" type="text"
+                       th:field="*{concepto}" th:disabled="${voucher.concepto!=null}"/>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-sm-6">Num
+                    Secuencia:</label>
+                <input class="form-control col-sm-6" type="text"
+                       th:field="*{numSecuencia}" th:disabled="${voucher.numSecuencia!=null}"/>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-sm-6">Fecha:</label>
+                <input class="form-control col-sm-6" type="date"
+                       th:value="${voucher.fechaPago != null} ? ${voucher.fechaPago}"
+                       name="fecha" th:disabled="${voucher.fechaPago != null}"/>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-6">Codigo
+                    agencia:</label>
+                <input class="form-control col-sm-6" type="text"
+                       th:field="*{codAgencia}" th:disabled="${voucher.codAgencia!=null}"/>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-6">Monto:</label>
+                <input class="form-control col-sm-6" type="number"
+                       th:field="*{monto}" th:disabled="${voucher.monto!=null}"/>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-sm-6">Archivo:</label>
+                <input class="form-control-file col-sm-6" type="file"
+                       name="file"/>
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Registrar Voucher"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class SArchivoImpl implements SIArchivo {
 
@@ -13,8 +15,28 @@ public class SArchivoImpl implements SIArchivo {
     DIArchivo archivoDao;
 
     @Override
+    public Archivo findOne(Long id) {
+        return archivoDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Archivo> findAll() {
+        return (List<Archivo>) archivoDao.findAll();
+    }
+
+    @Override
     @Transactional
     public void save(Archivo archivo) {
         archivoDao.save(archivo);
+    }
+
+    @Override
+    public List<Archivo> findAllWithSolicitudNull() {
+        return archivoDao.findAllWithSolicitudNull();
+    }
+
+    @Override
+    public void delete(Long id) {
+        archivoDao.deleteById(id);
     }
 }

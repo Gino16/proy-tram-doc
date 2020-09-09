@@ -133,54 +133,27 @@
                                     <td>Eliminar</td>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                <span class="text" th:if="${#lists.isEmpty(archivos)}">No existen archivos</span>
+                                <tr th:if="${not #lists.isEmpty(archivos)}" th:each="archivo: ${archivos}">
+                                    <td th:text="${archivo.tipoArchivo.nombre}"></td>
+                                    <td th:text="'El archivo pdf'"></td>
+                                    <td th:text="${archivo.descripcion}"></td>
+                                    <td>Open</td>
+                                    <td><a th:href="@{'/archivo/editar/' + ${archivo.id}}">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                    </a></td>
+                                    <td><a class="btn btn-danger" th:href="@{'/archivo/eliminar/' + ${archivo.id}}"
+                                    onclick="return confirm('Esta seguro de eliminar este archivo?');">X</a></td>
+                                </tr>
+                                </tbody>
                             </table>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#registrarArchivo">+
-                            </button>
+                            <a class="btn btn-primary" th:href="@{/archivo/registrar}">Registrar</a>
                         </div>
                     </div>
                 </div>
-                <!--Inicio Ventana modal para registrar archivo-->
-                <div class="modal fade" id="registrarArchivo">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Formulario Archivo</h4>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form th:action="@{/archivo/registrar}" th:object="${archivo}" method="post"
-                                      enctype="multipart/form-data">
-                                    <div class="form-group row">
-                                        <label class="col-form-label">Tipo:</label>
-                                        <select name="idTipoArchivo">
-                                            <option th:each="tipoArchivo: ${tipoArchivos}"
-                                                    th:value="${tipoArchivo.id}"
-                                                    th:text="${tipoArchivo.nombre}"></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label">Descripcion:</label>
-                                        <textarea class="form-control" rows="4"
-                                                  th:field="*{descripcion}"></textarea>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label">Archivo:</label>
-                                        <input class="form-control-file" type="file" name="file"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="btn btn-primary" type="submit"/>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!--FIN Ventana modal para registrar archivo-->
                 <!-- FIN llenado de Archivos -->
 
                 <!-- INICIO llenado de Vouchers -->
@@ -191,7 +164,7 @@
                             <table class="table table-striped table-hover" id="tablaArchivo">
                                 <thead>
                                 <tr>
-                                    <td>Conceptio</td>
+                                    <td>Concepto</td>
                                     <td>Secuencia</td>
                                     <td>Fecha</td>
                                     <td>Agencia</td>
@@ -202,76 +175,36 @@
                                     <td>Eliminar</td>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                <span class="text" th:if="${#lists.isEmpty(vouchers)}">No existen vouchers</span>
+                                <tr th:if="${not #lists.isEmpty(vouchers)}" th:each="voucher: ${vouchers}">
+                                    <td th:text="${voucher.concepto}"></td>
+                                    <td th:text="${voucher.numSecuencia}"></td>
+                                    <td th:text="${voucher.fechaPago}"></td>
+                                    <td th:text="${voucher.codAgencia}"></td>
+                                    <td th:text="${voucher.monto}"></td>
+                                    <td>Un Archivo</td>
+                                    <td><a href="">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                        </svg>
+                                    </a></td>
+                                    <td><a class="btn btn-outline-primary" th:href="@{'/voucher/editar/' + ${voucher.id}}">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                    </a></td>
+                                    <td><a class="btn btn-danger" th:href="@{'/voucher/eliminar/' + ${voucher.id}}"
+                                    onclick="return confirm('Esta seguro de eliminar este voucher?');">X</a></td>
+                                </tr>
+                                </tbody>
+
                             </table>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#registrarVoucher">+
-                            </button>
+                            <a class="btn btn-primary" th:href="@{/voucher/registrar}">Registrar</a>
                         </div>
                     </div>
                 </div>
-                <!--Inicio Ventana modal para registrar vouchers-->
-                <div class="modal fade" id="registrarVoucher">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Formulario Voucher</h4>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form th:action="@{/voucher/registrar}" th:object="${voucher}"
-                                      method="post"
-                                      enctype="multipart/form-data">
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-sm-6">Codigo
-                                            concepto:</label>
-                                        <input class="form-control col-sm-6" type="text"
-                                               th:field="*{concepto}"/>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-sm-6">Num
-                                            Secuencia:</label>
-                                        <input class="form-control col-sm-6" type="text"
-                                               th:field="*{numSecuencia}"/>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-sm-6">Fecha:</label>
-                                        <input class="form-control col-sm-6" type="date"
-                                               name="fecha"/>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-sm-6">Codigo
-                                            agencia:</label>
-                                        <input class="form-control col-sm-6" type="text"
-                                               th:field="*{codAgencia}"/>
-                                    </div>
-
-
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-sm-6">Monto:</label>
-                                        <input class="form-control col-sm-6" type="number"
-                                               th:field="*{monto}"/>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-form-label col-sm-6">Archivo:</label>
-                                        <input class="form-control-file col-sm-6" type="file"
-                                               name="file"/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input class="btn btn-primary" type="submit" value="Registrar Voucher"/>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!--FIN Ventana modal para registrar vouchers-->
             </div>
         </div>
     </div>
