@@ -33,11 +33,10 @@
 
             <div class="form-group row">
                 <label class="col-form-label mr-3">Cargo:</label>
-                <select>
+                <select th:field="*{puesto}">
                     <option th:each="puesto : ${puestos}"
                             th:value="${puesto.id}"
-                            th:text="${puesto.nombre}"
-                            th:field="*{puesto}"></option>
+                            th:text="${puesto.nombre}"></option>
                 </select>
             </div>
 

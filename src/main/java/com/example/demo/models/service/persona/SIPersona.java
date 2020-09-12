@@ -11,7 +11,7 @@ public interface SIPersona {
 
     public void savePersona(Persona persona);
 
-    public Persona findOne(Long id);
+    public Persona findOne(String id);
 
     public List<Persona> findByDniRuc(String term);
 

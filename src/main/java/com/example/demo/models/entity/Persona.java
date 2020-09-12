@@ -11,10 +11,7 @@ import javax.validation.constraints.Email;
 public class Persona implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "dni_ruc", unique = true)
+    @Column(name = "dni_ruc")
     private String dniRuc;
 
     private String nombre;
@@ -28,14 +25,6 @@ public class Persona implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_puesto")
     private Puesto puesto;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDniRuc() {
         return dniRuc;

@@ -40,6 +40,13 @@
     <div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
     <div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
     <div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+    <script>
+        window.setTimeout(function (){
+            $(".alert").fadeTo(500, 0).slideUp(500, function (){
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
 </header>
 
 <footer th:fragment="footer">

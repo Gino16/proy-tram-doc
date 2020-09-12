@@ -28,7 +28,7 @@ public class SPersonaImpl implements SIPersona {
 
     @Override
     @Transactional(readOnly = true)
-    public Persona findOne(Long id) {
+    public Persona findOne(String id) {
         return personaDao.findById(id).orElse(null);
     }
 

@@ -10,3 +10,5 @@ insert into tipo_archivos (nombre) values ('FUT'), ('Consolidado de notas'), ('C
 #Insertando tipos de solicitudes
 insert into tipo_solicitudes (nombre) values ('Asignación jurado de tesis'), ('Aprobacion de tesis'), ('Asigacion jurado de bachiller');
 
+#Insertando estados
+insert into estados(nombre) values ('Registrado'),('Recepcionado'),('Aprobado'),('Rechazado'),('Archivado');

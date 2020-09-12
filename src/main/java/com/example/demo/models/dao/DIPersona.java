@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface DIPersona extends CrudRepository<Persona, Long> {
+public interface DIPersona extends CrudRepository<Persona, String> {
 
 
     @Query("select p from Persona p join fetch p.puesto where p.dniRuc like %?1% ")

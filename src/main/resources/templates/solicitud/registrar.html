@@ -10,202 +10,235 @@
         <div class="card-body">
             <!--Formulario de solicitud-->
             <!--Inicio de listado de tipo solicitudes-->
-            <div class="form-group row">
-                <div class="col-7">
-                    <label>Tipo de solicitud</label>
+            <form th:action="@{/solicitud/registrar}" th:object="${solicitud}" method="post">
+                <div class="form-group row">
+                    <div class="col-7">
+                        <label>Tipo de solicitud</label>
+                    </div>
+                    <div class="col-5">
+                        <select class="custom-select" th:field="*{tipoSolicitud}">
+                            <option th:each="tipoSolicitud : ${tipoSolicitudes}"
+                                    th:value="${tipoSolicitud.id}"
+                                    th:text="${tipoSolicitud.nombre}"></option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-5">
-                    <select class="custom-select">
-                        <option th:each="tipoSolicitud : ${tipoSolicitudes}" th:value="${tipoSolicitud.id}"
-                                th:text="${tipoSolicitud.nombre}"></option>
-                    </select>
+
+                <!--Fin de listado de tipo solicitudes-->
+                <!--Inicio de descripcion solicitud-->
+                <div class="container">
+                    <div class="form-group">
+                        <label>Descripcion:</label>
+                        <textarea class="form-control" rows="3" th:field="*{descripcion}"></textarea>
+                    </div>
                 </div>
-            </div>
+                <!--Fin de descripcion solicitud-->
 
-            <!--Fin de listado de tipo solicitudes-->
-            <!--Inicio de descripcion solicitud-->
-            <div class="container">
-                <div class="form-group">
-                    <label>Descripcion:</label>
-                    <textarea class="form-control" rows="3"></textarea>
-                </div>
-            </div>
-            <!--Fin de descripcion solicitud-->
+                <!--Inicio para llenado de solicitante y destinatario-->
+                <div class="container">
+                    <div class="row">
+                        <!--Inicio de llenado solicitante-->
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header" th:text="'Solicitante'"></div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">DNI / RUC:</label>
+                                        <input class="col-sm-8 form-control" id="dniRucSolicitante" type="text"
+                                               name="dniRucSolicitante">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Cod. Estudiante:</label>
+                                        <input class="col-sm-8 form-control" id="codSolicitante" type="text"
+                                               name="codEstudiante" readonly>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Nombre:</label>
+                                        <input class="col-sm-8 form-control" id="nombreSolicitante" type="text"
+                                               name="nombre"
+                                               readonly>
 
-            <!--Inicio para llenado de solicitante y destinatario-->
-            <div class="container">
-                <div class="row">
-                    <!--Inicio de llenado solicitante-->
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-header" th:text="'Solicitante'"></div>
-                            <div class="card-body">
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">DNI / RUC:</label>
-                                    <input class="col-sm-8 form-control" id="dniRucSolicitante" type="text"
-                                           name="dniRuc">
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Email:</label>
+                                        <input class="col-sm-8 form-control" id="emailSolicitante" type="email"
+                                               name="email"
+                                               readonly>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Puesto:</label>
+                                        <input class="col-sm-8 form-control" id="puestoSolicitante" type="text"
+                                               name="cargo"
+                                               readonly>
+                                    </div>
+
+                                    <a class="btn btn-primary" th:href="@{/persona/registrar}"
+                                       th:text="'Registrar Nuevo Solicitante'"></a>
+
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Cod. Estudiante:</label>
-                                    <input class="col-sm-8 form-control" id="codSolicitante" type="text"
-                                           name="codEstudiante" disabled>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Nombre:</label>
-                                    <input class="col-sm-8 form-control" id="nombreSolicitante" type="text"
-                                           name="nombre"
-                                           disabled>
+                            </div>
+                        </div>
+                        <!--Fin de llenado solicitante-->
+                        <!--Inicio llenado de destinatario-->
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header" th:text="'Destinatario'"></div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">DNI:</label>
+                                        <input class="col-sm-8 form-control" id="dniDestinatario" type="text"
+                                               name="dniDestinatario" readonly>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Nombre:</label>
+                                        <input class="col-sm-8 form-control" id="nombreDestinatario" type="text"
+                                               name="nombre">
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Email:</label>
+                                        <input class="col-sm-8 form-control" id="emailDestinatario" type="email"
+                                               name="email"
+                                               readonly>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label mr-3">Puesto:</label>
+                                        <input class="col-sm-8 form-control" id="puestoDestinatario" type="text"
+                                               name="cargo"
+                                               readonly>
+                                    </div>
 
                                 </div>
+                            </div>
+                        </div>
+                        <!--Fin de llenado destinatario-->
+                    </div>
+                    <!--Fin para llenado de solicitante y destinatario-->
 
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Email:</label>
-                                    <input class="col-sm-8 form-control" id="emailSolicitante" type="email"
-                                           name="email"
-                                           disabled>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Puesto:</label>
-                                    <input class="col-sm-8 form-control" id="puestoSolicitante" type="text"
-                                           name="cargo"
-                                           disabled>
-                                </div>
-
-                                <a class="btn btn-primary" th:href="@{/persona/registrar}"
-                                   th:text="'Registrar Nuevo Solicitante'"></a>
-
+                    <!-- Inicio llenado de Archivos -->
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="'Archivos'"></h4>
+                            <div class="row">
+                                <table class="table table-striped table-hover" id="tablaVoucher">
+                                    <thead>
+                                    <tr>
+                                        <td>Tipo</td>
+                                        <td>Archivo</td>
+                                        <td>Descripcion</td>
+                                        <td>Abrir</td>
+                                        <td>Actualizar</td>
+                                        <td>Eliminar</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <span class="text" th:if="${#lists.isEmpty(archivos)}">No existen archivos</span>
+                                    <tr th:if="${not #lists.isEmpty(archivos)}" th:each="archivo: ${archivos}">
+                                        <td th:text="${archivo.tipoArchivo.nombre}"></td>
+                                        <td th:text="'El archivo pdf'"></td>
+                                        <td th:text="${archivo.descripcion}"></td>
+                                        <td>Open</td>
+                                        <td><a th:href="@{'/archivo/editar/' + ${archivo.id}}">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                            </svg>
+                                        </a></td>
+                                        <td><a class="btn btn-danger" th:href="@{'/archivo/eliminar/' + ${archivo.id}}"
+                                               onclick="return confirm('Esta seguro de eliminar este archivo?');">X</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <a class="btn btn-primary" th:href="@{/archivo/registrar}">Registrar</a>
                             </div>
                         </div>
                     </div>
-                    <!--Fin de llenado solicitante-->
-                    <!--Inicio llenado de destinatario-->
-                    <div class="col-6">
-                        <div class="card">
-                            <div class="card-header" th:text="'Destinatario'"></div>
-                            <div class="card-body">
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">DNI:</label>
-                                    <input class="col-sm-8 form-control" id="dniDestinatario" type="text"
-                                           name="dniRuc" disabled>
-                                </div>
+                    <!-- FIN llenado de Archivos -->
 
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Nombre:</label>
-                                    <input class="col-sm-8 form-control" id="nombreDestinatario" type="text"
-                                           name="nombre">
-                                </div>
+                    <!-- INICIO llenado de Vouchers -->
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h4 class="card-title" th:text="'Vouchers'"></h4>
+                            <div class="row">
+                                <table class="table table-striped table-hover" id="tablaArchivo">
+                                    <thead>
+                                    <tr>
+                                        <td>Concepto</td>
+                                        <td>Secuencia</td>
+                                        <td>Fecha</td>
+                                        <td>Agencia</td>
+                                        <td>Monto</td>
+                                        <td>Archivo</td>
+                                        <td>Abrir</td>
+                                        <td>Actualizar</td>
+                                        <td>Eliminar</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <span class="text" th:if="${#lists.isEmpty(vouchers)}">No existen vouchers</span>
+                                    <tr th:if="${not #lists.isEmpty(vouchers)}" th:each="voucher: ${vouchers}">
+                                        <td th:text="${voucher.concepto}"></td>
+                                        <td th:text="${voucher.numSecuencia}"></td>
+                                        <td th:text="${voucher.fechaPago}"></td>
+                                        <td th:text="${voucher.codAgencia}"></td>
+                                        <td th:text="${voucher.monto}"></td>
+                                        <td>Un Archivo</td>
+                                        <td><a href="">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                                <path fill-rule="evenodd"
+                                                      d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                            </svg>
+                                        </a></td>
+                                        <td><a class="btn btn-outline-primary"
+                                               th:href="@{'/voucher/editar/' + ${voucher.id}}">
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                            </svg>
+                                        </a></td>
+                                        <td><a class="btn btn-danger" th:href="@{'/voucher/eliminar/' + ${voucher.id}}"
+                                               onclick="return confirm('Esta seguro de eliminar este voucher?');">X</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
 
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Email:</label>
-                                    <input class="col-sm-8 form-control" id="emailDestinatario" type="email"
-                                           name="email"
-                                           disabled>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-form-label mr-3">Puesto:</label>
-                                    <input class="col-sm-8 form-control" id="puestoDestinatario" type="text"
-                                           name="cargo"
-                                           disabled>
-                                </div>
-
+                                </table>
+                                <a class="btn btn-primary" th:href="@{/voucher/registrar}">Registrar</a>
                             </div>
                         </div>
                     </div>
-                    <!--Fin de llenado destinatario-->
                 </div>
-                <!--Fin para llenado de solicitante y destinatario-->
-
-                <!-- Inicio llenado de Archivos -->
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="'Archivos'"></h4>
-                        <div class="row">
-                            <table class="table table-striped table-hover" id="tablaVoucher">
-                                <thead>
-                                <tr>
-                                    <td>Tipo</td>
-                                    <td>Archivo</td>
-                                    <td>Descripcion</td>
-                                    <td>Abrir</td>
-                                    <td>Actualizar</td>
-                                    <td>Eliminar</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <span class="text" th:if="${#lists.isEmpty(archivos)}">No existen archivos</span>
-                                <tr th:if="${not #lists.isEmpty(archivos)}" th:each="archivo: ${archivos}">
-                                    <td th:text="${archivo.tipoArchivo.nombre}"></td>
-                                    <td th:text="'El archivo pdf'"></td>
-                                    <td th:text="${archivo.descripcion}"></td>
-                                    <td>Open</td>
-                                    <td><a th:href="@{'/archivo/editar/' + ${archivo.id}}">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                        </svg>
-                                    </a></td>
-                                    <td><a class="btn btn-danger" th:href="@{'/archivo/eliminar/' + ${archivo.id}}"
-                                    onclick="return confirm('Esta seguro de eliminar este archivo?');">X</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <a class="btn btn-primary" th:href="@{/archivo/registrar}">Registrar</a>
-                        </div>
-                    </div>
+                <div class="card-footer">
+                    <input class="btn btn-success" type="submit" th:value="'Registrar Solicitud'" />
+                    <!--<button class="btn btn-success" type="button" data-toggle="modal"
+                            data-target="#modalConfirmSol"></button>-->
                 </div>
-                <!-- FIN llenado de Archivos -->
+                <!--Inicio Ventana modal para confirmacion y resumen de registro solicitud-->
+                <!--            <div class="modal fade" id="modalConfirmSol" aria-labelledby="tituloModalConfirmSol" aria-hidden="true">
+                                <div class="modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="tituloModalConfirmSol">Resumen Solicitud</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
 
-                <!-- INICIO llenado de Vouchers -->
-                <div class="card my-3">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="'Vouchers'"></h4>
-                        <div class="row">
-                            <table class="table table-striped table-hover" id="tablaArchivo">
-                                <thead>
-                                <tr>
-                                    <td>Concepto</td>
-                                    <td>Secuencia</td>
-                                    <td>Fecha</td>
-                                    <td>Agencia</td>
-                                    <td>Monto</td>
-                                    <td>Archivo</td>
-                                    <td>Abrir</td>
-                                    <td>Actualizar</td>
-                                    <td>Eliminar</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <span class="text" th:if="${#lists.isEmpty(vouchers)}">No existen vouchers</span>
-                                <tr th:if="${not #lists.isEmpty(vouchers)}" th:each="voucher: ${vouchers}">
-                                    <td th:text="${voucher.concepto}"></td>
-                                    <td th:text="${voucher.numSecuencia}"></td>
-                                    <td th:text="${voucher.fechaPago}"></td>
-                                    <td th:text="${voucher.codAgencia}"></td>
-                                    <td th:text="${voucher.monto}"></td>
-                                    <td>Un Archivo</td>
-                                    <td><a href="">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                            <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                        </svg>
-                                    </a></td>
-                                    <td><a class="btn btn-outline-primary" th:href="@{'/voucher/editar/' + ${voucher.id}}">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                        </svg>
-                                    </a></td>
-                                    <td><a class="btn btn-danger" th:href="@{'/voucher/eliminar/' + ${voucher.id}}"
-                                    onclick="return confirm('Esta seguro de eliminar este voucher?');">X</a></td>
-                                </tr>
-                                </tbody>
-
-                            </table>
-                            <a class="btn btn-primary" th:href="@{/voucher/registrar}">Registrar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+            </form>
         </div>
     </div>
 
