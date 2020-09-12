@@ -33,7 +33,7 @@
             <a class=" nav-link text-white" th:href="@{/solicitud/registrar}">Registrar Solicitud</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">Solicitudes</a>
+            <a class="nav-link text-white" th:href="@{/solicitud/listar}">Solicitudes</a>
         </li>
     </ul>
     <div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>

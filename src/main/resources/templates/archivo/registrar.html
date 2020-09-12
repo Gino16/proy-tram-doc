@@ -16,7 +16,7 @@
                     <option th:each="tipoArchivo: ${tipoArchivos}"
                             th:value="${tipoArchivo.id}"
                             th:text="${tipoArchivo.nombre}"
-                            th:selected="${archivo.tipoArchivo != null and archivo.tipoArchivo.nombre == tipoArchivo.nombre}"></option>
+                            th:selected="${archivo.tipoArchivo != null and archivo.tipoArchivo == tipoArchivo}"></option>
                 </select>
             </div>
             <div class="form-group row">

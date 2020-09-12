@@ -74,8 +74,9 @@
                                                readonly>
                                     </div>
 
-                                    <a class="btn btn-primary" th:href="@{/persona/registrar}"
+                                    <a class="btn btn-success" th:href="@{/persona/registrar}"
                                        th:text="'Registrar Nuevo Solicitante'"></a>
+                                    <a class="btn btn-primary" th:href="@{/persona/listar}">Actualizar Datos Solicitante</a>
 
                                 </div>
                             </div>
@@ -141,8 +142,17 @@
                                         <td th:text="${archivo.tipoArchivo.nombre}"></td>
                                         <td th:text="'El archivo pdf'"></td>
                                         <td th:text="${archivo.descripcion}"></td>
-                                        <td>Open</td>
-                                        <td><a th:href="@{'/archivo/editar/' + ${archivo.id}}">
+                                        <td>
+                                            <a class="btn btn-outline-success" href="">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                                    <path fill-rule="evenodd"
+                                                          d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                                </svg>
+                                            </a>
+                                        </td>
+                                        <td><a class="btn btn-outline-info" th:href="@{'/archivo/editar/' + ${archivo.id}}">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -155,7 +165,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a class="btn btn-primary" th:href="@{/archivo/registrar}">Registrar</a>
+                                <a class="btn btn-outline-primary" th:href="@{/archivo/registrar}">+</a>
                             </div>
                         </div>
                     </div>
@@ -175,7 +185,7 @@
                                         <td>Agencia</td>
                                         <td>Monto</td>
                                         <td>Archivo</td>
-                                        <td>Abrir</td>
+                                        <td>Ver</td>
                                         <td>Actualizar</td>
                                         <td>Eliminar</td>
                                     </tr>
@@ -189,7 +199,7 @@
                                         <td th:text="${voucher.codAgencia}"></td>
                                         <td th:text="${voucher.monto}"></td>
                                         <td>Un Archivo</td>
-                                        <td><a href="">
+                                        <td><a class="btn btn-outline-success" href="">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -197,7 +207,7 @@
                                                       d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
                                             </svg>
                                         </a></td>
-                                        <td><a class="btn btn-outline-primary"
+                                        <td><a class="btn btn-outline-info"
                                                th:href="@{'/voucher/editar/' + ${voucher.id}}">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -212,13 +222,13 @@
                                     </tbody>
 
                                 </table>
-                                <a class="btn btn-primary" th:href="@{/voucher/registrar}">Registrar</a>
+                                <a class="btn btn-outline-primary" th:href="@{/voucher/registrar}">+</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <input class="btn btn-success" type="submit" th:value="'Registrar Solicitud'" />
+                    <input class="btn btn-success" type="submit" th:value="'Registrar Solicitud'"/>
                     <!--<button class="btn btn-success" type="button" data-toggle="modal"
                             data-target="#modalConfirmSol"></button>-->
                 </div>

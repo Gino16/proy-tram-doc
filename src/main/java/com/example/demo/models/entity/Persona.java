@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "personas")
@@ -12,11 +14,17 @@ public class Persona implements Serializable {
 
     @Id
     @Column(name = "dni_ruc")
+    @NotEmpty
+    @NotBlank
     private String dniRuc;
 
+    @NotEmpty
+    @NotBlank
     private String nombre;
 
     @Email
+    @NotEmpty
+    @NotBlank
     private String email;
 
     @Column(nullable = true)
@@ -67,6 +75,10 @@ public class Persona implements Serializable {
         this.puesto = puesto;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 
     private static final long serialVersionUID = 1L;
 

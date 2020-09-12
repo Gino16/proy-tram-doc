@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title" th:text="${titulo}"></h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>DNI/RUC</th>
+                <th>Cod. Estudiante</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Puesto</th>
+                <th>Editar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="persona : ${personas}">
+                <td th:text="${persona.dniRuc}"></td>
+                <td th:text="${persona.codEstudiante == null ? 'No tiene' : persona.codEstudiante}"></td>
+                <td th:text="${persona.nombre}"></td>
+                <td th:text="${persona.email}"></td>
+                <td th:text="${persona.puesto}"></td>
+                <td><a class="btn btn-primary" th:href="@{'/persona/editar/' + ${persona.dniRuc}}">Editar</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

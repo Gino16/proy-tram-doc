@@ -31,5 +31,10 @@ public class TipoSolicitud implements Serializable{
 		this.nombre = nombre;
 	}
 
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
+
 	private static final long serialVersionUID = 1L;
 }

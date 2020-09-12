@@ -13,7 +13,12 @@
             <div class="form-group row">
                 <label class="col-form-label mr-3">DNI / RUC:</label>
                 <input class="col-sm-8 form-control" type="text"
-                       th:field="*{dniRuc}">
+                       th:field="*{dniRuc}"
+                       th:errorclass="'form-control alert-danger'"/>
+                       <!--th:readonly="${persona.dniRuc != null && not #strings.isEmpty(persona.dniRuc) && #strings.length(persona.dniRuc)}"-->
+
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('dniRuc')}"
+                       th:errors="*{dniRuc}"></small>
             </div>
             <div class="form-group row">
                 <label class="col-form-label mr-3">Cod. Estudiante:</label>
@@ -23,12 +28,15 @@
             <div class="form-group row">
                 <label class="col-form-label mr-3">Nombre:</label>
                 <input class="col-sm-8 form-control" type="text"
-                       th:field="*{nombre}">
+                       th:field="*{nombre}" th:errorclass="'form-control alert-danger'">
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+                       th:errors="*{nombre}"></small>
             </div>
             <div class="form-group row">
                 <label class="col-form-label mr-3">Email:</label>
                 <input class="col-sm-8 form-control" type="text"
-                       th:field="*{email}">
+                       th:field="*{email}" th:errorclass="'form-control alert-danger'">
+                <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
             </div>
 
             <div class="form-group row">
@@ -36,7 +44,9 @@
                 <select th:field="*{puesto}">
                     <option th:each="puesto : ${puestos}"
                             th:value="${puesto.id}"
-                            th:text="${puesto.nombre}"></option>
+                            th:text="${puesto.nombre}"
+                            th:selected="${puesto.nombre == persona.puesto && persona.puesto != null}"
+                    ></option>
                 </select>
             </div>
 

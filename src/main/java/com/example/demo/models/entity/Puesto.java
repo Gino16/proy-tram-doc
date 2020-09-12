@@ -35,6 +35,11 @@ public class Puesto implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@Override
+	public String toString() {
+		return nombre;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 }

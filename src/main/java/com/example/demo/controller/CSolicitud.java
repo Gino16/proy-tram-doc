@@ -17,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -103,4 +104,27 @@ public class CSolicitud {
 		return "redirect:/solicitud/registrar";
 	}
 
+	@RequestMapping(value = "/listar")
+	public String listar(Model model){
+		List<Solicitud> solicitudes = solicitudService.findAll();
+		model.addAttribute("ultimosEstados", getUltimoEstado(solicitudes));
+		model.addAttribute("solicitudes", solicitudes);
+		return "/solicitud/listar";
+	}
+
+
+	public List<Estado> getUltimoEstado(List<Solicitud> solicitudes){
+		List<EstadoSolicitud> todosLosEstados = estadoSolicitudService.findAll();
+		List<Estado> ultimoEstado = new ArrayList<>();
+		Estado estado = null;
+		for(Solicitud solicitud: solicitudes){
+			for(EstadoSolicitud estadoSolicitud : todosLosEstados){
+				if(solicitud.getIdSolicitud() == estadoSolicitud.getIdEstadoSolicitud().getSolicitud().getIdSolicitud()){
+					estado = estadoSolicitud.getIdEstadoSolicitud().getEstado();
+				}
+			}
+			ultimoEstado.add(estado);
+		}
+		return ultimoEstado;
+	}
 }
