@@ -113,6 +113,8 @@ public class CSolicitud {
 	}
 
 
+
+
 	public List<Estado> getUltimoEstado(List<Solicitud> solicitudes){
 		List<EstadoSolicitud> todosLosEstados = estadoSolicitudService.findAll();
 		List<Estado> ultimoEstado = new ArrayList<>();

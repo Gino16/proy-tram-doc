@@ -76,7 +76,8 @@
 
                                     <a class="btn btn-success" th:href="@{/persona/registrar}"
                                        th:text="'Registrar Nuevo Solicitante'"></a>
-                                    <a class="btn btn-primary" th:href="@{/persona/listar}">Actualizar Datos Solicitante</a>
+                                    <a class="btn btn-primary" th:href="@{/persona/listar}">Actualizar Datos
+                                        Solicitante</a>
 
                                 </div>
                             </div>
@@ -143,7 +144,7 @@
                                         <td th:text="'El archivo pdf'"></td>
                                         <td th:text="${archivo.descripcion}"></td>
                                         <td>
-                                            <a class="btn btn-outline-success" href="">
+                                            <a class="btn btn-outline-success verArchivo" th:href="@{'/archivo/ver/' + ${archivo.id}}">
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
                                                      fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -152,7 +153,8 @@
                                                 </svg>
                                             </a>
                                         </td>
-                                        <td><a class="btn btn-outline-info" th:href="@{'/archivo/editar/' + ${archivo.id}}">
+                                        <td><a class="btn btn-outline-info"
+                                               th:href="@{'/archivo/editar/' + ${archivo.id}}">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -170,7 +172,38 @@
                         </div>
                     </div>
                     <!-- FIN llenado de Archivos -->
+                    <!--Inicio Ventana modal para ver archivo-->
 
+                    <div class="modal fade " id="modalVerArchivo" aria-labelledby="tituloModalConfirmSol"
+                         aria-hidden="true" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="tituloModalConfirmSol">Vista rapida de Archivo</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="tipoArchivo">Tipo</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="tipoArchivo" readonly/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="descripcionArchivo">Descripcion</label>
+                                            <textarea class="text-area col-8 ml-4" name="descripcion" id="descripcionArchivo" rows="3" readonly></textarea>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="pdfArchivo">Pdf:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="pdfArchivo" readonly/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Fin de ventana modal ver Archivo-->
                     <!-- INICIO llenado de Vouchers -->
                     <div class="card my-3">
                         <div class="card-body">
@@ -199,7 +232,7 @@
                                         <td th:text="${voucher.codAgencia}"></td>
                                         <td th:text="${voucher.monto}"></td>
                                         <td>Un Archivo</td>
-                                        <td><a class="btn btn-outline-success" href="">
+                                        <td><a class="btn btn-outline-success verVoucher" th:href="@{'/voucher/ver/' + ${voucher.id}}">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
                                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -226,28 +259,55 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <input class="btn btn-success" type="submit" th:value="'Registrar Solicitud'"/>
-                    <!--<button class="btn btn-success" type="button" data-toggle="modal"
-                            data-target="#modalConfirmSol"></button>-->
-                </div>
-                <!--Inicio Ventana modal para confirmacion y resumen de registro solicitud-->
-                <!--            <div class="modal fade" id="modalConfirmSol" aria-labelledby="tituloModalConfirmSol" aria-hidden="true">
-                                <div class="modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title" id="tituloModalConfirmSol">Resumen Solicitud</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
+                    <!--Fin llenado vouchers-->
 
+                    <div class="modal fade " id="modalVerVoucher" aria-labelledby="tituloVerVoucher"
+                         aria-hidden="true" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="tituloVerVoucher">Vista rapida de Archivo</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="conceptoVoucher">Concepto:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="conceptoVoucher" readonly/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="numSecuenciaVoucher">Num. Secuencia:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="numSecuenciaVoucher" readonly/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="fechaPagoVoucher">Fecha:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="fechaPagoVoucher" readonly/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="codAgenciaVoucher">Cod. Agencia:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="codAgenciaVoucher" readonly/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="montoVoucher">Monto:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="montoVoucher" readonly/>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label" for="pdfVoucher">Archivo Pdf:</label>
+                                            <input class="form-control col-8 ml-4" type="text" id="pdfVoucher" readonly/>
                                         </div>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input class="btn btn-success" type="submit" th:value="'Registrar Solicitud'"/>
+
+                </div>
+
             </form>
         </div>
     </div>
@@ -255,7 +315,10 @@
 </div>
 
 <footer th:replace="layout/layout :: footer"></footer>
+<script th:replace="solicitud/js/ventana-modal-archivo :: javascript"></script>
+<script th:replace="solicitud/js/ventana-modal-voucher :: javascript"></script>
 <script th:replace="solicitud/js/autocomplete-solicitante :: javascript"></script>
 <script th:replace="solicitud/js/autocomplete-destinatario :: javascript"></script>
+
 </body>
 </html>

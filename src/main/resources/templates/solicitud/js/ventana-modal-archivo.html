@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script type="text/javascript" th:fragment="javascript">
+
+    $(document).ready(function (){
+        $('.verArchivo').on('click', function (event){
+            event.preventDefault();
+
+            var hrefArchivo = $(this).attr('href');
+
+            $.get(hrefArchivo, function (archivo, status){
+                $('#tipoArchivo').val(archivo.tipoArchivo.nombre);
+                $('#descripcionArchivo').val(archivo.descripcion);
+                $('#pdfArchivo').val(archivo.url);
+            });
+
+            $('#modalVerArchivo').modal('show');
+        });
+    });
+</script>
+</body>
+</html>

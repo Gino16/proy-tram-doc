@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.entity.Archivo;
+import com.example.demo.models.entity.Solicitud;
 import com.example.demo.models.service.SIUploadFile;
 import com.example.demo.models.service.archivo.SIArchivo;
 import com.example.demo.models.service.tipoarchivo.SITipoArchivo;
@@ -83,6 +84,11 @@ public class CArchivo {
         model.addAttribute("archivo", archivo);
         model.addAttribute("tipoArchivos", tipoArchivoService.findAll());
         return "/archivo/registrar";
+    }
+
+    @GetMapping(value = "/ver/{id}", produces = "application/json")
+    public @ResponseBody Archivo ver(@PathVariable Long id){
+        return archivoService.findOne(id);
     }
 
     @GetMapping("/eliminar/{id}")

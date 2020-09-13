@@ -1,9 +1,11 @@
 package com.example.demo.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "tipo_archivos")
 public class TipoArchivo implements Serializable {

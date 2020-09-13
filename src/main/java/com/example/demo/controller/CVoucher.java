@@ -94,6 +94,11 @@ public class CVoucher {
         return "/voucher/registrar";
     }
 
+    @GetMapping(value = "/ver/{id}", produces = "application/json")
+    public @ResponseBody Voucher ver(@PathVariable Long id){
+        return voucherService.findOne(id);
+    }
+
     @RequestMapping(value = "/eliminar/{id}", method = RequestMethod.GET)
     public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash){
         if(id > 0 ){

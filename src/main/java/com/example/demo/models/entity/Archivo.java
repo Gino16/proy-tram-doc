@@ -1,5 +1,7 @@
 package com.example.demo.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 import javax.persistence.*;

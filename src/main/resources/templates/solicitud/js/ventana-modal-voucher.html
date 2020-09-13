@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<script type="text/javascript" th:fragment="javascript">
+    $(document).ready(function (){
+        $('.verVoucher').on('click', function (event){
+            event.preventDefault();
+
+            var hrefVoucher = $(this).attr('href');
+            $.get(hrefVoucher, function (voucher, status){
+                $('#conceptoVoucher').val(voucher.concepto);
+                $('#numSecuenciaVoucher').val(voucher.numSecuencia);
+                $('#fechaPagoVoucher').val(voucher.fechaPago);
+                $('#codAgenciaVoucher').val(voucher.codAgencia);
+                $('#montoVoucher').val(voucher.monto);
+                $('#pdfVoucher').val(voucher.url);
+            });
+            $('#modalVerVoucher').modal('show');
+        });
+    });
+</script>
+</body>
+</html>
