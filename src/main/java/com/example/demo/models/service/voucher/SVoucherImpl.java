@@ -1,6 +1,7 @@
 package com.example.demo.models.service.voucher;
 
 import com.example.demo.models.dao.DIVoucher;
+import com.example.demo.models.entity.Solicitud;
 import com.example.demo.models.entity.Voucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class SVoucherImpl implements SIVoucher {
     @Override
     public List<Voucher> findAllWithSolicitudNull() {
         return voucherDao.findAllWithSolicitudNull();
+    }
+
+    @Override
+    public List<Voucher> findAllBySolicitud(Solicitud solicitud) {
+        return voucherDao.findAllBySolicitud(solicitud);
     }
 
     @Override

@@ -28,4 +28,9 @@ public class SEstadoSolicitudImpl implements SIEstadoSolicitud {
     public EstadoSolicitud findOne(EstadoSolicitudPK id) {
         return estadoSolicitudDao.findById(id).orElse(null);
     }
+
+    @Override
+    public List<EstadoSolicitud> findAllByIdEstadoSolicitudBySolicitud(Long id) {
+        return estadoSolicitudDao.findAllByIdEstadoSolicitudBySolicitud(id);
+    }
 }

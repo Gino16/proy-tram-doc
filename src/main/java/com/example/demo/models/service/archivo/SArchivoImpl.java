@@ -2,6 +2,7 @@ package com.example.demo.models.service.archivo;
 
 import com.example.demo.models.dao.DIArchivo;
 import com.example.demo.models.entity.Archivo;
+import com.example.demo.models.entity.Solicitud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,11 @@ public class SArchivoImpl implements SIArchivo {
     @Override
     public List<Archivo> findAllWithSolicitudNull() {
         return archivoDao.findAllWithSolicitudNull();
+    }
+
+    @Override
+    public List<Archivo> findAllBySolicitud(Solicitud solicitud) {
+        return archivoDao.findAllBySolicitud(solicitud);
     }
 
     @Override

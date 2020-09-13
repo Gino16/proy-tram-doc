@@ -1,6 +1,7 @@
 package com.example.demo.models.dao;
 
 import com.example.demo.models.entity.Archivo;
+import com.example.demo.models.entity.Solicitud;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,4 +11,6 @@ public interface DIArchivo extends CrudRepository<Archivo, Long> {
 
     @Query("select a from Archivo a join fetch a.tipoArchivo where a.solicitud is null")
     public List<Archivo> findAllWithSolicitudNull();
+
+    public List<Archivo> findAllBySolicitud(Solicitud solicitud);
 }

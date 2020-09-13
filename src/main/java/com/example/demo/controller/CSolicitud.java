@@ -52,6 +52,7 @@ public class CSolicitud {
 	SIEstadoSolicitud estadoSolicitudService;
 
 
+
 	@GetMapping(value = "/registrar")
 	public String vistaRegistrar(Model model){
 
@@ -112,6 +113,28 @@ public class CSolicitud {
 		return "/solicitud/listar";
 	}
 
+	@GetMapping("/ver/{id}")
+	public String ver(@PathVariable Long id,Model model, RedirectAttributes flash){
+		Solicitud solicitud = null;
+		if(id > 0){
+			solicitud = solicitudService.findOne(id);
+			if(solicitud == null){
+				flash.addFlashAttribute("error", "Esta solicitud no se encuentra en la BD");
+				return "redirect:/solicitud/listar";
+			}
+		} else {
+			flash.addFlashAttribute("error", "La ID ingresada no es valida!");
+			return "redirect:/solicitud/listar";
+		}
+		model.addAttribute("titulo", "Informacion de la Solicitud");
+		model.addAttribute("estados", estadoSolicitudService.findAllByIdEstadoSolicitudBySolicitud(solicitud.getIdSolicitud()));
+		model.addAttribute("solicitud", solicitud);
+		model.addAttribute("archivos", archivoService.findAllBySolicitud(solicitud));
+		model.addAttribute("vouchers", voucherService.findAllBySolicitud(solicitud));
+		model.addAttribute("aprobado", estadoService.finOne((long)3));
+		model.addAttribute("desaprobado", estadoService.finOne((long)4));
+		return "/solicitud/ver";
+	}
 
 
 

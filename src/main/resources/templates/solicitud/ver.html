@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" th:text="${titulo}"></h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-form-label ml-3">Tipo de Solicitud</label>
+                <input class="form-control col-sm-6 ml-3" th:value="${solicitud.tipoSolicitud}" readonly/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label">Descripcion</label>
+                <textarea class="form-control" th:text="${solicitud.descripcion}" readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label>Estado de tramite</label>
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="estado : ${estados}">
+                        <td th:text="${estado.idEstadoSolicitud.estado.nombre}"></td>
+                        <td th:text="${estado.fecha}"></td>
+                        <td th:text="${estado.descripcion}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Solicitante</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-form-label">DNI/RUC</label>
+                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.dniRuc}"
+                                           readonly/>
+                                </div>
+                                <div class="form-group row" th:if="${solicitud.solicitante.codEstudiante != null}">
+                                    <label class="col-form-label">Cod. Estudiante</label>
+                                    <input class="form-control col-sm-4 ml-3"
+                                           th:value="${solicitud.solicitante.codEstudiante}" readonly/>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label">Nombre:</label>
+                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.nombre}"
+                                           readonly/>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label">Email:</label>
+                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.email}"
+                                           readonly/>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label">Cargo:</label>
+                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.puesto}"
+                                           readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Destinatario</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-form-label">DNI/RUC</label>
+                                    <input class="form-control col-sm-4 ml-3"
+                                           th:value="${solicitud.destinatario.dniRuc}" readonly/>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label">Nombre:</label>
+                                    <input class="form-control col-sm-4 ml-3"
+                                           th:value="${solicitud.destinatario.nombre}" readonly/>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label">Email:</label>
+                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.destinatario.email}"
+                                           readonly/>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label">Cargo:</label>
+                                    <input class="form-control col-sm-4 ml-3"
+                                           th:value="${solicitud.destinatario.puesto}" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-info" th:if="${#lists.isEmpty(archivos)} or archivos == null">
+                    No hay archivos registrados en esta solicitud
+                </div>
+                <div class="form-group" th:if="${not #lists.isEmpty(archivos) or archivos != null}">
+                    <label>Archivos</label>
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Archivo</th>
+                            <th>Descripcion</th>
+                            <th>Abrir</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="archivo : ${archivos}">
+                            <td th:text="${archivo.tipoArchivo}"></td>
+                            <td th:text="${archivo.url}"></td>
+                            <td th:text="${archivo.descripcion}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="alert alert-info" th:if="${#lists.isEmpty(vouchers)} or vouchers == null">
+                    No hay vouchers registrados en esta solicitud
+                </div>
+                <div class="form-group" th:if="${not #lists.isEmpty(vouchers) or vouchers != null}">
+
+                    <label>Vouchers</label>
+                    <table class="table table-striped table-hover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Secuencia</th>
+                            <th>Fecha</th>
+                            <th>Agencia</th>
+                            <th>Monto</th>
+                            <th>Archivo</th>
+                            <th>Abrir</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="voucher: ${vouchers}">
+                            <td th:text="${voucher.concepto}"></td>
+                            <td th:text="${voucher.numSecuencia}"></td>
+                            <td th:text="${voucher.fechaPago}"></td>
+                            <td th:text="${voucher.codAgencia}"></td>
+                            <td th:text="${voucher.monto}"></td>
+                            <td th:text="${voucher.url}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="form-group">
+                <textarea class="form-control" placeholder="Descripcion Adicional"
+                          th:readonly="${#lists.contains(estados, aprobado) or #lists.contains(estados, desaprobado)}"></textarea>
+            </div>
+            <!--No deshabilita al no tener aprobado o desaprobado-->
+            <div class="form-group row">
+                <a class="btn btn-info mx-3"
+                   th:readonly="${not (#lists.contains(estados, aprobado) or #lists.contains(estados, desaprobado))}">Archivar</a>
+                <a class="btn btn-info mx-3"
+                   th:readonly="${not (#lists.contains(estados, aprobado) or #lists.contains(estados, desaprobado))}">Entregar
+                    Respuesta</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

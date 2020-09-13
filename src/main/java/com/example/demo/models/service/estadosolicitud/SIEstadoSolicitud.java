@@ -13,5 +13,7 @@ public interface SIEstadoSolicitud {
 
     public EstadoSolicitud findOne(EstadoSolicitudPK id);
 
+    public List<EstadoSolicitud> findAllByIdEstadoSolicitudBySolicitud(Long id);
+
 
 }

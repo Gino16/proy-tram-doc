@@ -1,5 +1,6 @@
 package com.example.demo.models.dao;
 
+import com.example.demo.models.entity.Solicitud;
 import com.example.demo.models.entity.Voucher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -10,4 +11,6 @@ public interface DIVoucher extends CrudRepository<Voucher, Long> {
 
     @Query("select v from Voucher v where v.solicitud is null")
     public List<Voucher> findAllWithSolicitudNull();
+
+    public List<Voucher> findAllBySolicitud(Solicitud solicitud);
 }

@@ -14,4 +14,5 @@ public interface SISolicitud {
     public List<Solicitud> findByPersonaDni(String dni);
 
     public List<Solicitud> findByPersonaNombre(String nombre);
+
 }
