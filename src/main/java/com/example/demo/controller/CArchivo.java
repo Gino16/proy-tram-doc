@@ -11,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.HttpServletBean;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/archivo")
@@ -30,7 +34,7 @@ public class CArchivo {
     SITipoArchivo tipoArchivoService;
 
     @GetMapping("/registrar")
-    public String vistaRegistrar(Model model){
+    public String vistaRegistrar(Model model) {
         Archivo archivo = new Archivo();
         model.addAttribute("archivo", archivo);
         model.addAttribute("tipoArchivos", tipoArchivoService.findAll());
@@ -49,9 +53,9 @@ public class CArchivo {
                 uploadFileService.delete(archivo.getUrl());
             }
             String uniqueFilename = null;
-            try{
+            try {
                 uniqueFilename = uploadFileService.copy(fotoArchivo);
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -69,11 +73,11 @@ public class CArchivo {
     }
 
     @RequestMapping(value = "/editar/{id}")
-    public String editar(@PathVariable Long id, Model model, RedirectAttributes flash){
+    public String editar(@PathVariable Long id, Model model, RedirectAttributes flash) {
         Archivo archivo = null;
-        if(id > 0){
+        if (id > 0) {
             archivo = archivoService.findOne(id);
-            if(archivo == null){
+            if (archivo == null) {
                 flash.addFlashAttribute("error", "El archivo no existe en la BD!");
                 return "redirect:/solicitud/registrar";
             }
@@ -87,20 +91,41 @@ public class CArchivo {
     }
 
     @GetMapping(value = "/ver/{id}", produces = "application/json")
-    public @ResponseBody Archivo ver(@PathVariable Long id){
+    public @ResponseBody
+    Archivo ver(@PathVariable Long id) {
         return archivoService.findOne(id);
     }
 
     @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id, RedirectAttributes flash){
-        if(id > 0){
+    public String eliminar(@PathVariable Long id, RedirectAttributes flash) {
+        if (id > 0) {
             Archivo archivo = archivoService.findOne(id);
             archivoService.delete(id);
             flash.addFlashAttribute("error", "Archivo eliminado con exito!");
-            if(uploadFileService.delete(archivo.getUrl())){
+            if (uploadFileService.delete(archivo.getUrl())) {
                 flash.addFlashAttribute("info", "El pdf adjunto al archivo fue eliminado");
             }
+        } else {
+            flash.addFlashAttribute("error", "La ID del archivo no es valido");
+            return "redirect:/solicitud/registrar";
         }
         return "redirect:/solicitud/registrar";
+    }
+
+    @GetMapping("/verPdf/{id}")
+    public @ResponseBody
+    void generarPdf(@PathVariable Long id, HttpServletResponse response) throws Exception {
+        Archivo archivo = archivoService.findOne(id);
+        byte[] pdf = uploadFileService.getBytes(archivo.getUrl());
+        streamPdf(response, pdf, archivo.getUrl().split("_")[1]);
+    }
+
+    private void streamPdf(HttpServletResponse response, byte[] pdf, String name) throws IOException {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "inline; filename=" + name);
+        response.setContentLength(pdf.length);
+
+        response.getOutputStream().write(pdf);
+        response.getOutputStream().flush();
     }
 }

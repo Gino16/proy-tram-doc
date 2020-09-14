@@ -13,7 +13,7 @@
                 $('#fechaPagoVoucher').val(voucher.fechaPago);
                 $('#codAgenciaVoucher').val(voucher.codAgencia);
                 $('#montoVoucher').val(voucher.monto);
-                $('#pdfVoucher').val(voucher.url);
+                $('#pdfVoucher').attr('href', '/voucher/verPdf/' + voucher.id);
             });
             $('#modalVerVoucher').modal('show');
         });

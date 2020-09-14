@@ -111,7 +111,7 @@
                                         <label class="col-form-label mr-3">Puesto:</label>
                                         <input class="col-sm-8 form-control" id="puestoDestinatario" type="text"
                                                name="cargo"
-                                               readonly>
+                                               readonly/>
                                     </div>
 
                                 </div>
@@ -196,7 +196,9 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-form-label" for="pdfArchivo">Pdf:</label>
-                                            <input class="form-control col-8 ml-4" type="text" id="pdfArchivo" readonly/>
+                                            <a class="btn btn-outline-primary ml-4" id="pdfArchivo" target="_blank">
+                                                Abrir PDF
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +262,7 @@
                         </div>
                     </div>
                     <!--Fin llenado vouchers-->
-
+                    <!--Inicio modal ver Voucher-->
                     <div class="modal fade " id="modalVerVoucher" aria-labelledby="tituloVerVoucher"
                          aria-hidden="true" role="dialog" tabindex="-1">
                         <div class="modal-dialog" role="document">
@@ -295,13 +297,14 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-form-label" for="pdfVoucher">Archivo Pdf:</label>
-                                            <input class="form-control col-8 ml-4" type="text" id="pdfVoucher" readonly/>
+                                            <a class="btn btn-outline-primary ml-3"  id="pdfVoucher" target="_blank">Open PDF</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--Fin modal ver Voucher-->
                 </div>
                 <div class="card-footer">
                     <input class="btn btn-success" type="submit" th:value="'Registrar Solicitud'"/>

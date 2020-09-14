@@ -53,6 +53,12 @@ public class SUploadFileImpl implements SIUploadFile {
         Files.createDirectory(Paths.get(UPLOADS_FOLDER));
     }
 
+    @Override
+    public byte[] getBytes(String filename) throws Exception{
+        return Files.readAllBytes(getPath(filename));
+    }
+
+
     public Path getPath(String filename){
         return Paths.get(UPLOADS_FOLDER).resolve(filename).toAbsolutePath();
     }

@@ -12,7 +12,7 @@
             $.get(hrefArchivo, function (archivo, status){
                 $('#tipoArchivo').val(archivo.tipoArchivo.nombre);
                 $('#descripcionArchivo').val(archivo.descripcion);
-                $('#pdfArchivo').val(archivo.url);
+                $('#pdfArchivo').attr('href', '/archivo/verPdf/' + archivo.id);
             });
 
             $('#modalVerArchivo').modal('show');

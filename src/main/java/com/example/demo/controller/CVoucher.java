@@ -11,6 +11,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
@@ -111,5 +112,21 @@ public class CVoucher {
 
         }
         return "redirect:/solicitud/registrar";
+    }
+
+    @GetMapping("/verPdf/{id}")
+    public @ResponseBody void verPdf(@PathVariable Long id, HttpServletResponse response) throws Exception{
+        Voucher voucher = voucherService.findOne(id);
+        byte[] pdf = fileService.getBytes(voucher.getUrl());
+        streamPdf(response, pdf, voucher.getUrl().split("_")[1]);
+    }
+
+    private void streamPdf(HttpServletResponse response, byte[] pdf, String name) throws IOException {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "inline; filename=" + name);
+        response.setContentLength(pdf.length);
+
+        response.getOutputStream().write(pdf);
+        response.getOutputStream().flush();
     }
 }

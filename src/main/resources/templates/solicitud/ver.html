@@ -46,27 +46,27 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label class="col-form-label">DNI/RUC</label>
-                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.dniRuc}"
+                                    <input class="form-control col-sm-8 ml-3" th:value="${solicitud.solicitante.dniRuc}"
                                            readonly/>
                                 </div>
                                 <div class="form-group row" th:if="${solicitud.solicitante.codEstudiante != null}">
                                     <label class="col-form-label">Cod. Estudiante</label>
-                                    <input class="form-control col-sm-4 ml-3"
+                                    <input class="form-control col-sm-8 ml-3"
                                            th:value="${solicitud.solicitante.codEstudiante}" readonly/>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label">Nombre:</label>
-                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.nombre}"
+                                    <input class="form-control col-sm-8 ml-3" th:value="${solicitud.solicitante.nombre}"
                                            readonly/>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label">Email:</label>
-                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.email}"
+                                    <input class="form-control col-sm-8 ml-3" th:value="${solicitud.solicitante.email}"
                                            readonly/>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label">Cargo:</label>
-                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.solicitante.puesto}"
+                                    <input class="form-control col-sm-8 ml-3" th:value="${solicitud.solicitante.puesto}"
                                            readonly/>
                                 </div>
                             </div>
@@ -80,22 +80,22 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label class="col-form-label">DNI/RUC</label>
-                                    <input class="form-control col-sm-4 ml-3"
+                                    <input class="form-control col-sm-8 ml-3"
                                            th:value="${solicitud.destinatario.dniRuc}" readonly/>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label">Nombre:</label>
-                                    <input class="form-control col-sm-4 ml-3"
+                                    <input class="form-control col-sm-8 ml-3"
                                            th:value="${solicitud.destinatario.nombre}" readonly/>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label">Email:</label>
-                                    <input class="form-control col-sm-4 ml-3" th:value="${solicitud.destinatario.email}"
+                                    <input class="form-control col-sm-8 ml-3" th:value="${solicitud.destinatario.email}"
                                            readonly/>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-form-label">Cargo:</label>
-                                    <input class="form-control col-sm-4 ml-3"
+                                    <input class="form-control col-sm-8 ml-3"
                                            th:value="${solicitud.destinatario.puesto}" readonly/>
                                 </div>
                             </div>
@@ -119,8 +119,18 @@
                         <tbody>
                         <tr th:each="archivo : ${archivos}">
                             <td th:text="${archivo.tipoArchivo}"></td>
-                            <td th:text="${archivo.url}"></td>
+                            <td th:text="${archivo.url.split('_')[1]}"></td>
                             <td th:text="${archivo.descripcion}"></td>
+                            <td>
+                                <a class="btn btn-outline-primary" target="_blank" th:href="@{'/archivo/verPdf/' + ${archivo.id}}">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                        <path fill-rule="evenodd"
+                                              d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                    </svg>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -150,7 +160,17 @@
                             <td th:text="${voucher.fechaPago}"></td>
                             <td th:text="${voucher.codAgencia}"></td>
                             <td th:text="${voucher.monto}"></td>
-                            <td th:text="${voucher.url}"></td>
+                            <td th:text="${voucher.url.split('_')[1]}"></td>
+                            <td>
+                                <a class="btn btn-outline-primary" target="_blank" th:href="@{'/voucher/verPdf/' + ${voucher.id}}">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
+                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                        <path fill-rule="evenodd"
+                                              d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                    </svg>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
