@@ -3,10 +3,9 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 <header th:replace="layout/layout :: header"></header>
-
-<div class="container">
-    <img class="img-thumbnail rounded"
-         th:src="@{/imagenes/episi.jpg}" th:alt="'EPISI'"/>
+<div class="container mt-3">
+    <h1 class="h1 text-danger">PARECE QUE SE PERDIÓ, REGRESE AL INICIO</h1>
+    <a class="btn btn-outline-danger" th:href="@{/index}" role="button">VUELVA A SU CASA</a>
 </div>
 <footer th:replace="layout/layout :: footer"></footer>
 </body>

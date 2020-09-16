@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="container mt-3">
+    <div class="card bg-danger text-white">
+        <div class="card-header">Error de acceso denegado</div>
+        <div class="card-body">
+            <h5 class="card-title">Lo sentimos <span th:text="${#httpServletRequest.remoteUser}"></span>, NO TIENE PERMISO PARA ESTA PAGINA</h5>
+        </div>
+        <a class="btn btn-outline-light" th:href="@{/index}" role="button">Ir a Inicio</a>
+    </div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
